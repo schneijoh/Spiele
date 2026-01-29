@@ -1,34 +1,76 @@
 import streamlit as st
 
-st.set_page_config(page_title="Notendurchschnitt Rechner", page_icon="📚")
+st.set_page_config(page_title="Notendurchschnitt Rechner", page_icon="📚", layout="centered")
 
-st.title("📚 Notendurchschnitt Rechner")
-st.write("Einfache Streamlit WebApp zur Berechnung deines Zeugnis-Durchschnitts")
+# ---------- Style ----------
+st.markdown("""
+<style>
+/* Hintergrund und Schriftfarbe */
+.block-container {
+    padding-top: 2rem;
+    background-color: #fff0f0;
+}
+.stButton>button {
+    background-color: #e74c3c;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+}
+.stNumberInput>div>div>input {
+    border-radius: 5px;
+}
+.stTextInput>div>input {
+    border-radius: 5px;
+}
+</style>
+""", unsafe_allow_html=True)
 
-# Eingabe Anzahl Fächer
+# ---------- Header ----------
+st.markdown("# 📚 Notendurchschnitt Rechner")
+st.markdown("Berechne deinen Zeugnis-Durchschnitt übersichtlich und strukturiert.")
+
+# ---------- Anzahl Fächer ----------
 anzahl_faecher = st.number_input("Wie viele Fächer hast du?", min_value=1, max_value=20, step=1)
 
+# ---------- Noten & Fächer ----------
 fach_namen = []
 noten = []
 
-# Dynamische Felder
+st.markdown("---")
+st.markdown("### Fächer & Noten")
 for i in range(int(anzahl_faecher)):
-    fach = st.text_input(f"Fach {i+1}", value=f"Fach {i+1}", key=f"f_{i}")
-    note = st.number_input(f"Note für {fach}", min_value=1.0, max_value=6.0, step=0.1, key=f"n_{i}")
+    col1, col2 = st.columns([2,1])
+    with col1:
+        fach = st.text_input(f"Fach {i+1}", value=f"Fach {i+1}", key=f"f_{i}")
+    with col2:
+        note = st.number_input(f"Note", min_value=1.0, max_value=6.0, step=0.1, key=f"n_{i}")
     fach_namen.append(fach)
     noten.append(note)
 
-# Button
-if st.button("Durchschnitt berechnen"):
+st.markdown("---")
+
+# ---------- Durchschnitt ----------
+if st.button("📊 Durchschnitt berechnen"):
     if len(noten) > 0:
         durchschnitt = sum(noten) / len(noten)
-        st.success(f"Dein Notendurchschnitt: {durchschnitt:.2f}")
+        st.markdown(f"## 🎯 Dein Notendurchschnitt: **{durchschnitt:.2f}**")
 
-        # Diagramm (ohne matplotlib)
-        st.markdown("### 📊 Notenübersicht")
+        # Bewertung
+        if durchschnitt <= 1.5:
+            st.success("🌟 Sehr stark! Top Leistung!")
+        elif durchschnitt <= 2.5:
+            st.info("👍 Gut gemacht!")
+        elif durchschnitt <= 3.5:
+            st.warning("🙂 Solide Leistung")
+        else:
+            st.error("💪 Da geht noch was – du schaffst das!")
+
+        # Diagramm
+        st.markdown("### 📈 Notenübersicht")
         chart_data = {fach_namen[i]: noten[i] for i in range(len(fach_namen))}
         st.bar_chart(chart_data)
 
-        st.info(f"📈 Durchschnitt: {durchschnitt:.2f}")
+        st.info(f"📌 Durchschnitt: {durchschnitt:.2f}")
     else:
         st.error("Bitte Noten eingeben")
