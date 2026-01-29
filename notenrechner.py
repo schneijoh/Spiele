@@ -2,30 +2,6 @@ import streamlit as st
 
 st.set_page_config(page_title="Notendurchschnitt Rechner", page_icon="📚", layout="centered")
 
-# ---------- Style ----------
-st.markdown("""
-<style>
-/* Hintergrund und Schriftfarbe */
-.block-container {
-    padding-top: 2rem;
-    background-color: #fff0f0;
-}
-.stButton>button {
-    background-color: #e74c3c;
-    color: white;
-    font-weight: bold;
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-}
-.stNumberInput>div>div>input {
-    border-radius: 5px;
-}
-.stTextInput>div>input {
-    border-radius: 5px;
-}
-</style>
-""", unsafe_allow_html=True)
-
 # ---------- Header ----------
 st.markdown("# 📚 Notendurchschnitt Rechner")
 st.markdown("Berechne deinen Zeugnis-Durchschnitt übersichtlich und strukturiert.")
@@ -33,7 +9,9 @@ st.markdown("Berechne deinen Zeugnis-Durchschnitt übersichtlich und strukturier
 # ---------- Anzahl Fächer ----------
 anzahl_faecher = st.number_input("Wie viele Fächer hast du?", min_value=1, max_value=20, step=1)
 
-# ---------- Noten & Fächer ----------
+# ---------- Standard-Fächer ----------
+standard_faecher = ["Deutsch", "Mathe", "Englisch", "Biologie", "Chemie", "Physik", "Geschichte", "Geographie", "Kunst", "Musik"]
+
 fach_namen = []
 noten = []
 
@@ -42,7 +20,10 @@ st.markdown("### Fächer & Noten")
 for i in range(int(anzahl_faecher)):
     col1, col2 = st.columns([2,1])
     with col1:
-        fach = st.text_input(f"Fach {i+1}", value=f"Fach {i+1}", key=f"f_{i}")
+        if i < len(standard_faecher):
+            fach = st.text_input(f"Fach {i+1}", value=standard_faecher[i], key=f"f_{i}")
+        else:
+            fach = st.text_input(f"Fach {i+1}", value=f"Fach {i+1}", key=f"f_{i}")
     with col2:
         note = st.number_input(f"Note", min_value=1.0, max_value=6.0, step=0.1, key=f"n_{i}")
     fach_namen.append(fach)
@@ -74,3 +55,4 @@ if st.button("📊 Durchschnitt berechnen"):
         st.info(f"📌 Durchschnitt: {durchschnitt:.2f}")
     else:
         st.error("Bitte Noten eingeben")
+ 
