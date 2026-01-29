@@ -1,6 +1,3 @@
-import streamlit as st
-import matplotlib.pyplot as plt
-
 st.set_page_config(page_title="Notendurchschnitt Rechner", page_icon="📚", layout="centered")
 
 # Custom CSS für schöneres Design
