@@ -2,3 +2,5 @@ pygame
 random
 sys
 streamlit
+streamlit as st
+matplotlib.pyplot as plt
