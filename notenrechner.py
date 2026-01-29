@@ -1,6 +1,25 @@
 import streamlit as st
+from PIL import Image
 
 st.set_page_config(page_title="Notendurchschnitt Rechner", page_icon="📚", layout="centered")
+
+# ---------- Hintergrundbild (HSV Bild) ----------
+# Stelle sicher, dass die Datei 'hsv.jpg' im gleichen Ordner liegt
+background_image = 'hsv.jpg'
+st.markdown(f"""
+<style>
+.block-container {{
+    background-image: url('{background_image}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem;
+}}
+.stApp {{
+    background-color: rgba(255, 255, 255, 0.8);
+}}
+</style>
+""", unsafe_allow_html=True)
 
 # ---------- Header ----------
 st.markdown("# 📚 Notendurchschnitt Rechner")
@@ -55,4 +74,6 @@ if st.button("📊 Durchschnitt berechnen"):
         st.info(f"📌 Durchschnitt: {durchschnitt:.2f}")
     else:
         st.error("Bitte Noten eingeben")
+
+
  
