@@ -1,6 +1,5 @@
 streamlit as st
 pandas as pd
-os
 random
 from fpdf FPDF
 
