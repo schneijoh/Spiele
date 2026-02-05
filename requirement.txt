@@ -4,3 +4,8 @@ sys
 streamlit
 streamlit as st
 matplotlib.pyplot as plt
+pandas as pd
+matplotlib.pyplot as plt
+from fpdf FPDF
+os
+random
