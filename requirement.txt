@@ -1,8 +1,6 @@
-pygame
 random
 sys
 streamlit
-matplotlib.pyplot
 pandas 
 FPDF
 os
