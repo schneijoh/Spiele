@@ -2,10 +2,8 @@ pygame
 random
 sys
 streamlit
-streamlit as st
-matplotlib.pyplot as plt
-pandas as pd
-matplotlib.pyplot as plt
-from fpdf FPDF
+matplotlib.pyplot
+pandas 
+FPDF
 os
 random
