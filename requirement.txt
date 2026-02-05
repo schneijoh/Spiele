@@ -1,7 +1,4 @@
-random
-sys
 streamlit
-pandas 
-FPDF
-os
-random
+pandas
+matplotlib
+fpdf2
