@@ -79,11 +79,15 @@ if not df.empty:
     st.markdown(f"**Gesamtpunkte:** {df['Punkte'].sum()} | **Level:** {level}")
 
 # -----------------------------
-# Hinweis & Design
+# Designhinweis
 # -----------------------------
 st.markdown("""
 <style>
 body {background-color: #e6f0ff;}
 </style>
 """, unsafe_allow_html=True)
+
 st.info("💡 Tipp: Die App speichert Vokabeln in `vokabeln.csv`. Du kannst diese Datei sichern oder bearbeiten.")
+
+    
+
