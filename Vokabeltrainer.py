@@ -1,27 +1,19 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-from fpdf import FPDF
 import os
 import random
+from fpdf import FPDF
 
 # -----------------------------
 # Seitentitel & Layout
 # -----------------------------
-st.set_page_config(
-    page_title="Vokabeltrainer",
-    page_icon="📚",
-    layout="centered",
-)
-
+st.set_page_config(page_title="Vokabeltrainer", page_icon="📚", layout="centered")
 st.markdown("<h1 style='text-align: center; color: #0b3d91;'>📚 Vokabeltrainer</h1>", unsafe_allow_html=True)
 
 # -----------------------------
 # Datenmanagement
 # -----------------------------
 VOCAB_FILE = "vokabeln.csv"
-
-# Vokabel-Datei laden oder erstellen
 if os.path.exists(VOCAB_FILE):
     df = pd.read_csv(VOCAB_FILE)
 else:
@@ -62,12 +54,7 @@ if not df.empty:
 # -----------------------------
 st.subheader("Statistiken")
 if not df.empty:
-    fig, ax = plt.subplots(figsize=(8,4))
-    df.plot(x='Deutsch', y='Richtig', kind='bar', color='#0b3d91', ax=ax)
-    ax.set_ylabel("Richtige Antworten")
-    ax.set_xlabel("Vokabeln")
-    ax.set_xticklabels(df['Deutsch'], rotation=45, ha="right")
-    st.pyplot(fig)
+    st.bar_chart(df.set_index("Deutsch")[["Richtig"]])
 
 # -----------------------------
 # PDF-Export
@@ -92,14 +79,11 @@ if not df.empty:
     st.markdown(f"**Gesamtpunkte:** {df['Punkte'].sum()} | **Level:** {level}")
 
 # -----------------------------
-# Hinweis
+# Hinweis & Design
 # -----------------------------
 st.markdown("""
 <style>
-body {
-    background-color: #e6f0ff;
-}
+body {background-color: #e6f0ff;}
 </style>
 """, unsafe_allow_html=True)
-
 st.info("💡 Tipp: Die App speichert Vokabeln in `vokabeln.csv`. Du kannst diese Datei sichern oder bearbeiten.")
